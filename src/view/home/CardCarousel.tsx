@@ -1,0 +1,117 @@
+import { Card, Empty, Spin, Typography, notification } from "antd";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import { useNavigate } from "react-router-dom";
+import { getNewProducts, getTopRatedProducts } from "../../api/product";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+
+const { Meta } = Card;
+const { Title } = Typography;
+const { useNotification } = notification;
+
+interface CardCarousel {
+  title: string;
+}
+
+const CardCarousel = ({ title }: CardCarousel) => {
+  const navigate = useNavigate();
+  const [api, contextHolder] = useNotification();
+
+  function showNotification(description: string) {
+    api.error({
+      message: "Error",
+      description,
+    });
+  }
+
+  const { error, isSuccess, isLoading, data } = useQuery({
+    queryKey: [{ title }],
+    queryFn: () =>
+      title === "New Products" ? getNewProducts() : getTopRatedProducts(),
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      showNotification(error.message);
+    }
+  }, [error]);
+
+  return (
+    <div>
+      {contextHolder}
+      <Title level={4}> {title}</Title>
+      <br />
+      <Swiper
+        slidesPerView={7}
+        spaceBetween={15}
+        navigation={true}
+        modules={[Navigation]}
+      >
+        {isSuccess ? (
+          data.data.products.map(
+            (
+              {
+                _id,
+                name,
+                description,
+                images,
+              }: {
+                _id: string;
+                name: string;
+                description: string;
+                images: string[];
+              },
+              index: number
+            ) => (
+              <SwiperSlide key={index}>
+                <Card
+                  hoverable
+                  onClick={() => navigate(`products/${_id}`)}
+                  style={{ overflow: "hidden" }}
+                  cover={
+                    <img
+                      alt="example"
+                      src={`${import.meta.env.VITE_API_BACKEND_URL}${
+                        images[0]
+                      }`}
+                      style={{
+                        height: 238,
+                        minWidth: "100%",
+                        maxWidth: "auto",
+                      }}
+                    />
+                  }
+                >
+                  <div>
+                    <Meta title={name} description={description} />
+                  </div>
+                </Card>
+              </SwiperSlide>
+            )
+          )
+        ) : (
+          <Spin spinning={isLoading}>
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              style={{
+                height: 200,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+          </Spin>
+        )}
+      </Swiper>
+      <br />
+    </div>
+  );
+};
+
+export default CardCarousel;

@@ -1,0 +1,104 @@
+import { useEffect } from "react";
+
+import { List, Card, notification } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+import { getProducts } from "../../api/product";
+
+const { Meta } = Card;
+const { useNotification } = notification;
+
+interface IProduct {
+  _id: string;
+  name: string;
+  description: string;
+  images: [string];
+}
+
+const ProductList = () => {
+  const navigate = useNavigate();
+  const [api, contextHolder] = useNotification();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  function showNotification(description: string) {
+    api.error({
+      message: "Error",
+      description,
+    });
+  }
+
+  const filter = {
+    page: searchParams.get("page") || "1",
+    category: searchParams.get("category") || undefined,
+    rating: searchParams.get("rating") || undefined,
+    search: searchParams.get("search") || undefined,
+  };
+
+  const { error, isLoading, isSuccess, data } = useQuery({
+    queryKey: ["Products", { ...filter }],
+    queryFn: () => getProducts(filter),
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.log(error)
+      showNotification(error.message);
+    }
+  }, [error]);
+
+  return (
+    <>
+      {contextHolder}
+      <List
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 2,
+          md: 3,
+          lg: 4,
+          xl: 4,
+          xxl: 6,
+        }}
+        loading={isLoading}
+        pagination={{
+          onChange: (newPage: number) => {
+            setSearchParams(
+              (prev) => {
+                prev.set("page", newPage.toString());
+                return prev;
+              },
+              { replace: true }
+            );
+          },
+          total: isSuccess ? data.data.totalCount : 10,
+          pageSize: 10,
+          current: Number(searchParams.get("page")) || 1,
+        }}
+        dataSource={isSuccess ? data.data.products : []}
+        renderItem={(product: IProduct) => (
+          <List.Item>
+            <Card
+              hoverable
+              onClick={() => navigate(`./${product._id}`)}
+              style={{ overflow: "hidden" }}
+              cover={
+                <img
+                  alt="example"
+                  src={`${import.meta.env.VITE_API_BACKEND_URL}${product.images[0]}`}
+                  style={{ height: 238, width: "auto" }}
+                />
+              }
+            >
+              <div>
+                <Meta title={product.name} description={product.description} />
+              </div>
+            </Card>
+          </List.Item>
+        )}
+      />
+    </>
+  );
+};
+
+export default ProductList;
