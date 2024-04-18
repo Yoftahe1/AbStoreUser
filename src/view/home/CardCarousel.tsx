@@ -1,4 +1,4 @@
-import { Card, Empty, Spin, Typography, notification } from "antd";
+import { Card, Empty, Flex, Spin, Tag, Typography, notification } from "antd";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { getNewProducts, getTopRatedProducts } from "../../api/product";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
-const { Title } = Typography;
+const { Title,Text } = Typography;
 const { useNotification } = notification;
 
 interface CardCarousel {
@@ -58,12 +59,12 @@ const CardCarousel = ({ title }: CardCarousel) => {
               {
                 _id,
                 name,
-                description,
+                price,
                 images,
               }: {
                 _id: string;
                 name: string;
-                description: string;
+                price:number;
                 images: string[];
               },
               index: number
@@ -88,7 +89,33 @@ const CardCarousel = ({ title }: CardCarousel) => {
                   }
                 >
                   <div>
-                    <Meta title={name} description={description} />
+                    <Meta
+                      title={name}
+                      description={
+                        <Flex align="center" justify="space-between">
+                          <Flex gap={5} align="end">
+                            <Text
+                              strong
+                              style={{ color: "#389E0D", fontSize: 17 }}
+                            >
+                              {price}
+                            </Text>
+                            <Text> ETB </Text>
+                          </Flex>
+
+                          {/* <Tag
+                            style={{
+                              padding: "5px 10px",
+                              borderRadius: 20,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <StarFilled style={{ color: "gold" }} />
+                            {product.rating} Starts
+                          </Tag> */}
+                        </Flex>
+                      }
+                    />
                   </div>
                 </Card>
               </SwiperSlide>

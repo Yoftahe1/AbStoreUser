@@ -1,17 +1,21 @@
 import { useEffect } from "react";
 
-import { List, Card, notification } from "antd";
+import { List, Card, notification, Flex, Tag, Typography } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { getProducts } from "../../api/product";
+import { StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
+const { Text } = Typography;
 const { useNotification } = notification;
 
 interface IProduct {
   _id: string;
   name: string;
+  price: number;
+  rating: number;
   description: string;
   images: [string];
 }
@@ -42,7 +46,7 @@ const ProductList = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(error)
+      console.log(error);
       showNotification(error.message);
     }
   }, [error]);
@@ -85,13 +89,38 @@ const ProductList = () => {
               cover={
                 <img
                   alt="example"
-                  src={`${import.meta.env.VITE_API_BACKEND_URL}${product.images[0]}`}
+                  src={`${import.meta.env.VITE_API_BACKEND_URL}${
+                    product.images[0]
+                  }`}
                   style={{ height: 238, width: "auto" }}
                 />
               }
             >
               <div>
-                <Meta title={product.name} description={product.description} />
+                <Meta
+                  title={product.name}
+                  description={
+                    <Flex align="center" justify="space-between">
+                      <Flex gap={5} align="end">
+                        <Text strong style={{ color: "#389E0D", fontSize: 17 }}>
+                          {product.price}{" "}
+                        </Text>
+                        <Text> ETB </Text>
+                      </Flex>
+
+                      <Tag
+                        style={{
+                          padding: "5px 10px",
+                          borderRadius: 20,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <StarFilled style={{ color: "gold" }} />
+                        {product.rating} Starts
+                      </Tag>
+                    </Flex>
+                  }
+                />
               </div>
             </Card>
           </List.Item>
