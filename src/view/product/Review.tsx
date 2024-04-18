@@ -26,7 +26,7 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [api, contextHolder] = useNotification();
   const queryClient = useQueryClient();
-  const user=useUserStore(state=>state.user)
+  const user = useUserStore((state) => state.user);
 
   function showModal() {
     setIsOpen(true);
@@ -34,10 +34,10 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
   function hideModal() {
     setIsOpen(false);
   }
-  const { mutate,isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: reviewProduct,
     onSuccess: (response) => {
-      form.resetFields()
+      form.resetFields();
       showNotification("success", response.message);
       queryClient.invalidateQueries({
         queryKey: ["Product", { id }],
@@ -59,8 +59,7 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
   }
 
   const onFinish = ({ review }: { review: string }) => {
-   ;
-    if(user) mutate({ id, review });
+    if (user) mutate({ id, review });
     else showNotification("error", "Please sign in first.");
   };
   return (
@@ -78,7 +77,12 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
         open={isOpen}
         onCancel={hideModal}
         footer={[
-          <Form key="reviewForm" form={form} name="reviewForm" onFinish={onFinish}>
+          <Form
+            key="reviewForm"
+            form={form}
+            name="reviewForm"
+            onFinish={onFinish}
+          >
             <Flex>
               <Form.Item
                 name="review"
@@ -90,7 +94,12 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
                 <Input placeholder="Enter what you think" />
               </Form.Item>
               <Form.Item style={{ margin: 0 }}>
-                <Button type="primary" htmlType="submit" disabled={isPending} loading={isPending}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={isPending}
+                  loading={isPending}
+                >
                   <ArrowRightOutlined />
                 </Button>
               </Form.Item>
@@ -98,8 +107,8 @@ const Review = ({ id, reviewCount }: { id: string; reviewCount: number }) => {
           </Form>,
         ]}
       >
-        <div style={{maxHeight:"calc(70vh - 64px)",overflowY:"scroll"}}>
-        <ReviewList id={id} />
+        <div style={{ maxHeight: "calc(70vh - 64px)", overflowY: "scroll" }}>
+          <ReviewList id={id} />
         </div>
       </Modal>
     </>
@@ -145,11 +154,15 @@ const ReviewList = ({ id }: { id: string }) => {
         renderItem={(review: IReview) => (
           <List.Item>
             <Flex gap={10} align="center" style={{ width: "100%" }}>
-              <Avatar size={"large"}>{review.userId.firstName[0]}</Avatar>
+              <Avatar size={"large"}>
+                {review.userId ? review.userId.firstName[0] : "."}
+              </Avatar>
               <Flex vertical flex={1}>
                 <Flex justify="space-between">
                   <Text>
-                    {review.userId.firstName} {review.userId.lastName}
+                    {review.userId
+                      ? `${review.userId.firstName} ${review.userId.lastName}`
+                      : "..."}
                   </Text>
                 </Flex>
                 <Text type="secondary">{review.message}</Text>
