@@ -1,10 +1,10 @@
 import Meta from "antd/es/card/Meta";
-import { Card, Flex, List, Tag, Typography, notification } from "antd";
+import { Card, Flex, List, Typography, notification } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { getRelatedProducts } from "../../api/product";
-import { StarFilled } from "@ant-design/icons";
+// import { StarFilled } from "@ant-design/icons";
 
 const { useNotification } = notification;
 const { Title, Text } = Typography;

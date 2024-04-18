@@ -1,4 +1,4 @@
-import { Card, Empty, Flex, Spin, Tag, Typography, notification } from "antd";
+import { Card, Empty, Flex, Spin, Typography, notification } from "antd";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { getNewProducts, getTopRatedProducts } from "../../api/product";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { StarFilled } from "@ant-design/icons";
+// import { StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { Title,Text } = Typography;
