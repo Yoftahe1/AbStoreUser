@@ -53,7 +53,10 @@ const Desc = () => {
         </div>
         <Flex vertical gap={14} style={{ width: "40%" }}>
           <Skeleton loading={isLoading} paragraph={{ rows: 1 }}>
-            <Title level={1} style={{ margin: 0, padding: 0,textTransform:"capitalize" }}>
+            <Title
+              level={1}
+              style={{ margin: 0, padding: 0, textTransform: "capitalize" }}
+            >
               {isSuccess && data.data.product.name}
             </Title>
           </Skeleton>
@@ -124,37 +127,46 @@ function ImageSlide({ images }: { images: string[] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
 
   return (
-    <div style={{display:"flex"}}>
+    <div style={{ display: "flex" }}>
       <Swiper
         thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
         modules={[FreeMode, Navigation, Thumbs, Controller]}
-        style={{width:"80%",borderRadius: 10}}
+        style={{ width: "80%", borderRadius: 10 }}
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
               src={`${import.meta.env.VITE_API_BACKEND_URL}${img}`}
-              style={{ width: "100%", borderRadius: 10 }}
+              style={{
+                width: "100%",
+                borderRadius: 10,
+                border: "1px solid #F0F0F0",
+              }}
             />
           </SwiperSlide>
         ))}
       </Swiper>
-      <div style={{width:16}}/>
+      <div style={{ width: 16 }} />
       <Swiper
         spaceBetween={16}
         slidesPerView={4}
         onSwiper={setThumbsSwiper}
         direction="vertical"
         modules={[Navigation, Thumbs, Controller]}
-        style={{width:"20%"}}
+        style={{ width: "20%" }}
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
               src={`${import.meta.env.VITE_API_BACKEND_URL}${img}`}
-              style={{ height: "100%", borderRadius: 10 }}
+              style={{
+                height: "100%",
+                borderRadius: 10,
+                border: "1px solid #F0F0F0",
+                cursor:"pointer"
+              }}
             />
           </SwiperSlide>
         ))}

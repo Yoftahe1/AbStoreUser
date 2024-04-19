@@ -1,50 +1,95 @@
-import { Flex, Input, Layout, theme } from "antd";
+import { Flex, Input, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 
-import Sidebar from "./Sidebar";
 import ProductList from "./ProductList";
+import { ratings, selectCatagories } from "../../constant/constant";
 
 const { Search } = Input;
-const { useToken } = theme;
-const { Content, Sider } = Layout;
 
 const Products = () => {
-  const { token } = useToken();
-
   return (
-    <Flex gap={25}>
-      <Sider
-        width="15%"
-        style={{
-          backgroundColor: token.colorBgContainer,
-          height: "min-content",
-          borderRadius: 10,
-        }}
-      >
-        <Sidebar />
-      </Sider>
-      <Content>
+    <Flex vertical gap={16}>
+      <Flex justify="space-between" gap={16}>
+        <Flex gap={16}>
+          <Catagories />
+          <Rating />
+        </Flex>
         <SearchInput />
-        <br />
-        <ProductList />
-      </Content>
+      </Flex>
+      <ProductList />
     </Flex>
   );
 };
 
 export default Products;
 
+const Catagories = () => {
+  const [_, setSearchParams] = useSearchParams({
+    category: "",
+    page: "1",
+  });
+
+  const handleChange = (value: string) => {
+    setSearchParams(
+      (prev) => {
+        prev.set("category", value);
+        prev.set("page", "1");
+        return prev;
+      },
+      { replace: true }
+    );
+  };
+
+  return (
+    <Select
+      defaultValue={""}
+      placeholder="select category"
+      style={{ width: 150 }}
+      onChange={handleChange}
+      options={[{ value: "", label: "All" }, ...selectCatagories]}
+    />
+  );
+};
+
+const Rating = () => {
+  const [_, setSearchParams] = useSearchParams({
+    rating: "",
+    page: "1",
+  });
+
+  const handleChange = (value: string) => {
+    setSearchParams(
+      (prev) => {
+        prev.set("rating", value);
+        prev.set("page", "1");
+        return prev;
+      },
+      { replace: true }
+    );
+  };
+
+  return (
+    <Select
+      defaultValue={""}
+      placeholder="select category"
+      style={{ width: 150 }}
+      onChange={handleChange}
+      options={ratings}
+    />
+  );
+};
+
 const SearchInput = () => {
   const [_, setSearchParams] = useSearchParams({
     search: "",
-    page:"1"
+    page: "1",
   });
 
   function onSearch(value: string) {
     setSearchParams(
       (prev) => {
         prev.set("search", value);
-        prev.set("page","1");
+        prev.set("page", "1");
         return prev;
       },
       { replace: true }
@@ -52,12 +97,10 @@ const SearchInput = () => {
   }
 
   return (
-    <Flex justify="flex-end">
-      <Search
-        placeholder="input search text"
-        style={{ width: 300 }}
-        onSearch={onSearch}
-      />
-    </Flex>
+    <Search
+      placeholder="input search text"
+      style={{ width: 300 }}
+      onSearch={onSearch}
+    />
   );
 };
