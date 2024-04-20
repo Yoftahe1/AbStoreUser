@@ -3,50 +3,59 @@ import {
   CustomerServiceOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
-import { Col, Flex, Row, Typography, theme } from "antd";
+import { Flex, List, Typography, theme } from "antd";
+import { createElement } from "react";
 
 const { useToken } = theme;
 
 const { Text } = Typography;
+const aboutUs = [
+  {
+    title: "FAST DELIVERY",
+    desc: "Fast delivery for all orders",
+    icon: CarOutlined,
+  },
+  {
+    title: "CUSTOMER SUPPORT",
+    desc: "Friendly 24/7 customer support",
+    icon: CustomerServiceOutlined,
+  },
+  {
+    title: "MONEY BACK GUARANTEE",
+    desc: "We return money if product not received",
+    icon: SafetyCertificateOutlined,
+  },
+];
 
 const About = () => {
   const { token } = useToken();
+
   return (
-    <div>
-      <Row>
-        <Col span={8}>
+    <List
+      grid={{
+        gutter: 16,
+        xs: 1,
+        sm: 1,
+        md: 2,
+        lg: 2,
+        xl: 3,
+        xxl: 3,
+      }}
+      dataSource={aboutUs}
+      renderItem={(about) => (
+        <List.Item>
           <Flex gap={10} justify="center">
-            <CarOutlined style={{ fontSize: 30, color: token.colorText }} />
+            {createElement(about.icon, {
+              style: { fontSize: 30, color: token.colorText },
+            })}
             <Flex vertical>
-              <Text strong>FAST DELIVERY</Text>
-              <Text>Fast delivery for all orders</Text>
+              <Text strong>{about.title}</Text>
+              <Text>{about.desc}</Text>
             </Flex>
           </Flex>
-        </Col>
-        <Col span={8}>
-          <Flex gap={10} justify="center">
-            <CustomerServiceOutlined
-              style={{ fontSize: 30, color: token.colorText }}
-            />
-            <Flex vertical>
-              <Text strong>CUSTOMER SUPPORT</Text>
-              <Text>Friendly 24/7 customer support</Text>
-            </Flex>
-          </Flex>
-        </Col>
-        <Col span={8}>
-          <Flex gap={10} justify="center">
-            <SafetyCertificateOutlined
-              style={{ fontSize: 30, color: token.colorText }}
-            />
-            <Flex vertical>
-              <Text strong>MONEY BACK GUARANTEE</Text>
-              <Text>We return money if product not received</Text>
-            </Flex>
-          </Flex>
-        </Col>
-      </Row>
-    </div>
+        </List.Item>
+      )}
+    />
   );
 };
 

@@ -3,12 +3,6 @@
   border-radius: 15px;
   border: 1px solid #313131;
 }
-.img {
-  width: 30%;
-  height: auto;
-  border-radius: 15px;
-  background-color: blueviolet;
-}
 .category:hover {
   border-bottom: 1px solid grey;
 }

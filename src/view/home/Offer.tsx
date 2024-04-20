@@ -1,10 +1,8 @@
 import { RightOutlined } from "@ant-design/icons";
-import { Button, Col, Flex, Row, Space, Typography, theme } from "antd";
+import { Avatar, Button, Card, Flex, List, Typography } from "antd";
 
-import classes from "./home.module.css";
 import { useNavigate } from "react-router-dom";
 
-const { useToken } = theme;
 const { Text, Title } = Typography;
 const offers = [
   {
@@ -22,37 +20,41 @@ const offers = [
 ];
 
 const Offer = () => {
-  const navigate=useNavigate()
-  const { token } = useToken();
+  const navigate = useNavigate();
   return (
-    <div>
-      <Row gutter={40}>
-        {offers.map((offer, index) => {
-          return (
-            <Col key={index} span={6}>
-              <Flex
-                gap={10}
-                justify="space-between"
-                className={classes.card}
-                style={{ borderColor: token.colorBorder,backgroundColor:token.colorBgElevated }}
-              >
-                <Flex vertical>
-                  <Title level={4}>{offer.title}</Title>
-                  <Text>{offer.desc}</Text>
-                  <br />
-                  <Space>
-                    <Button type="link" onClick={()=>navigate("/products")} style={{ padding: 0 }}>
-                      Discover <RightOutlined />
-                    </Button>
-                  </Space>
-                </Flex>
-                <div className={classes.img} />
+    <List
+      grid={{
+        gutter: 16,
+        xs: 1,
+        sm: 1,
+        md: 2,
+        lg: 2,
+        xl: 3,
+        xxl: 4,
+      }}
+      dataSource={offers}
+      renderItem={(offer) => (
+        <List.Item>
+          <Card>
+            <Flex gap={10} align="center" justify="space-between">
+              <Flex vertical align="flex-start">
+                <Title level={5}>{offer.title}</Title>
+                <Text>{offer.desc}</Text>
+                <br />
+                <Button
+                  type="link"
+                  onClick={() => navigate("/products")}
+                  style={{ padding: 0 }}
+                >
+                  Discover <RightOutlined />
+                </Button>
               </Flex>
-            </Col>
-          );
-        })}
-      </Row>
-    </div>
+              <Avatar shape="square" size={115} />
+            </Flex>
+          </Card>
+        </List.Item>
+      )}
+    />
   );
 };
 

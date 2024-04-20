@@ -30,7 +30,7 @@ const Related = () => {
   }
 
   const { error, isLoading, isSuccess, data } = useQuery({
-    queryKey: ["RelatedProducts"],
+    queryKey: ["RelatedProducts", id],
     queryFn: () => getRelatedProducts(id || ""),
   });
 
