@@ -1,8 +1,13 @@
-import { Col, Flex, Row, Typography, theme } from "antd";
+import { Flex, List, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
 
 const { Text } = Typography;
 const { useToken } = theme;
+const footerData = [
+  { title: "Company", option1: "About us", option2: "Contact us" },
+  { title: "Legal", option1: "Term of use", option2: "Private Police" },
+  { title: "Social", option1: "Facebook", option2: "Instagram" },
+];
 
 const NewFooter = () => {
   const { token } = useToken();
@@ -11,48 +16,27 @@ const NewFooter = () => {
       style={{ textAlign: "center", backgroundColor: token.colorBgContainer }}
     >
       <div style={{ padding: 40 }}>
-        <Row>
-          <Col span={6}>
-            <Flex vertical align="flex-start">
-              <Text>
-                Making the world a better place through constructing elegant
-              </Text>
-              <Text>
-                solutions on the internet, and empowering consumers with the
-                voice
-              </Text>
-              <Text>of the people and the compass of consumer choice.</Text>
-            </Flex>
-            <Text></Text>
-          </Col>
-          <Col span={6}>
-            <Flex justify="center">
-              <Flex vertical align="flex-start">
-                <Text strong>Company</Text>
-                <Text>About us</Text>
-                <Text>Contact us</Text>
+        <List
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 3,
+            xl: 3,
+            xxl: 3,
+          }}
+          dataSource={footerData}
+          renderItem={(item) => (
+            <List.Item>
+              <Flex vertical justify="center">
+                <Text strong>{item.title}</Text>
+                <Text>{item.option1}</Text>
+                <Text>{item.option2}</Text>
               </Flex>
-            </Flex>
-          </Col>
-          <Col span={6}>
-            <Flex justify="center">
-              <Flex vertical align="flex-start">
-                <Text strong>Legal</Text>
-                <Text>Term of use</Text>
-                <Text>Private Police</Text>
-              </Flex>
-            </Flex>
-          </Col>
-          <Col span={6}>
-            <Flex justify="center">
-              <Flex vertical align="flex-start">
-                <Text strong>Social</Text>
-                <Text>Facebook</Text>
-                <Text>Instagram</Text>
-              </Flex>
-            </Flex>
-          </Col>
-        </Row>
+            </List.Item>
+          )}
+        />
       </div>
     </Footer>
   );

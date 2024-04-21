@@ -8,14 +8,18 @@ const offers = [
   {
     title: "LikeLife Audio & Secure Fit",
     desc: "Engineered for your best workout yet",
+    img:""
   },
   {
     title: "Big Zoom,No Problem",
     desc: "Up close, in tight,and worry free",
+    img:""
+
   },
   {
     title: "LikeLife Audio & Secure Fit",
     desc: "Engineered for your best workout yet",
+    img:""
   },
 ];
 
@@ -49,7 +53,7 @@ const Offer = () => {
                   Discover <RightOutlined />
                 </Button>
               </Flex>
-              <Avatar shape="square" size={115} />
+              <Avatar src={offer.img} shape="square" size={115} />
             </Flex>
           </Card>
         </List.Item>
