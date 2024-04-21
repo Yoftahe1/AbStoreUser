@@ -1,6 +1,4 @@
 import { Card, Empty, Flex, Spin, Typography, notification } from "antd";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,7 +9,7 @@ import { useEffect } from "react";
 // import { StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
-const { Title,Text } = Typography;
+const { Title, Text } = Typography;
 const { useNotification } = notification;
 
 interface CardCarousel {
@@ -47,12 +45,7 @@ const CardCarousel = ({ title }: CardCarousel) => {
       {contextHolder}
       <Title level={4}> {title}</Title>
       <br />
-      <Swiper
-        slidesPerView={7}
-        spaceBetween={15}
-        navigation={true}
-        modules={[Navigation]}
-      >
+      <Flex gap={16} style={{ overflowX: "auto" }}>
         {isSuccess ? (
           data.data.products.map(
             (
@@ -64,46 +57,41 @@ const CardCarousel = ({ title }: CardCarousel) => {
               }: {
                 _id: string;
                 name: string;
-                price:number;
+                price: number;
                 images: string[];
               },
               index: number
             ) => (
-              <SwiperSlide key={index}>
-                <Card
-                  hoverable
-                  onClick={() => navigate(`products/${_id}`)}
-                  style={{ overflow: "hidden" }}
-                  cover={
-                    <img
-                      alt="example"
-                      src={`${import.meta.env.VITE_API_BACKEND_URL}${
-                        images[0]
-                      }`}
-                      style={{
-                        height: 238,
-                        minWidth: "100%",
-                        maxWidth: "auto",
-                      }}
-                    />
-                  }
-                >
-                  <div>
-                    <Meta
-                      title={name}
-                      description={
-                        <Flex align="center" justify="space-between">
-                          <Flex gap={5} align="end">
-                            <Text
-                              strong
-                              style={{ color: "#389E0D", fontSize: 17 }}
-                            >
-                              {price}
-                            </Text>
-                            <Text> ETB </Text>
-                          </Flex>
+              <Card
+                key={index}
+                hoverable
+                onClick={() => navigate(`products/${_id}`)}
+                cover={
+                  <img
+                    alt="example"
+                    src={`${import.meta.env.VITE_API_BACKEND_URL}${images[0]}`}
+                    style={{
+                      width: 238,
+                    }}
+                  />
+                }
+              >
+                <div>
+                  <Meta
+                    title={name}
+                    description={
+                      <Flex align="center" justify="space-between">
+                        <Flex gap={5} align="end">
+                          <Text
+                            strong
+                            style={{ color: "#389E0D", fontSize: 17 }}
+                          >
+                            {price}
+                          </Text>
+                          <Text> ETB </Text>
+                        </Flex>
 
-                          {/* <Tag
+                        {/* <Tag
                             style={{
                               padding: "5px 10px",
                               borderRadius: 20,
@@ -113,12 +101,11 @@ const CardCarousel = ({ title }: CardCarousel) => {
                             <StarFilled style={{ color: "gold" }} />
                             {product.rating} Starts
                           </Tag> */}
-                        </Flex>
-                      }
-                    />
-                  </div>
-                </Card>
-              </SwiperSlide>
+                      </Flex>
+                    }
+                  />
+                </div>
+              </Card>
             )
           )
         ) : (
@@ -135,7 +122,7 @@ const CardCarousel = ({ title }: CardCarousel) => {
             />
           </Spin>
         )}
-      </Swiper>
+      </Flex>
       <br />
     </div>
   );
