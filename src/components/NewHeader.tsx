@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LogoutOutlined,
   LoginOutlined,
-  ShoppingCartOutlined,
-  MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Menu, Button, Flex, MenuProps, Typography, Drawer } from "antd";
