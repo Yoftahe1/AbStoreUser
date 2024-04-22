@@ -5,6 +5,8 @@ import { Layout, theme } from "antd";
 import NewFooter from "../components/NewFooter";
 import NewHeader from "../components/NewHeader";
 
+import classes from "./layout.module.css";
+
 const { useToken } = theme;
 const { Header, Content } = Layout;
 
@@ -19,21 +21,15 @@ const AppLayout = ({ children }: IProps) => {
     <Layout style={{ minHeight: "100vh" }}>
       <Header
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          position: "sticky",
-          top: 0,
-          zIndex: 2,
           backgroundColor: token.colorBgContainer,
-          borderBottom: "1px solid #fff",
           borderBottomColor: token.colorBorderSecondary,
         }}
+        className={classes.header}
       >
         <NewHeader />
       </Header>
       <Layout>
-        <Content style={{ padding: "0 48px" }}>
+        <Content className={classes.content}>
           <br />
           {children}
         </Content>

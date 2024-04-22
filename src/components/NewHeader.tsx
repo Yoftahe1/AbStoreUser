@@ -202,10 +202,12 @@ const Sidebar = () => {
       >
         <Menu
           items={items}
+          theme="light"
           mode="vertical"
           defaultSelectedKeys={[pathname.slice(1).split("/")[0]]}
           selectedKeys={[pathname.slice(1).split("/")[0]]}
           onClick={handelNavigation}
+          style={{background:"transparent",border:0}}
         />
       </Drawer>
     </>

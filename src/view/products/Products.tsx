@@ -9,7 +9,7 @@ const { Search } = Input;
 const Products = () => {
   return (
     <Flex vertical gap={16}>
-      <Flex justify="space-between" gap={16}>
+      <Flex justify="space-around" gap={16} wrap="wrap">
         <Flex gap={16}>
           <Catagories />
           <Rating />
@@ -24,10 +24,11 @@ const Products = () => {
 export default Products;
 
 const Catagories = () => {
-  const [_, setSearchParams] = useSearchParams({
+  const [searchParams, setSearchParams] = useSearchParams({
     category: "",
     page: "1",
   });
+  const selectedCategory = searchParams.get("category") || "";
 
   const handleChange = (value: string) => {
     setSearchParams(
@@ -42,7 +43,7 @@ const Catagories = () => {
 
   return (
     <Select
-      defaultValue={""}
+      defaultValue={selectedCategory}
       placeholder="select category"
       style={{ width: 150 }}
       onChange={handleChange}
@@ -52,10 +53,11 @@ const Catagories = () => {
 };
 
 const Rating = () => {
-  const [_, setSearchParams] = useSearchParams({
+  const [searchParams, setSearchParams] = useSearchParams({
     rating: "",
     page: "1",
   });
+  const selectedRating = searchParams.get("rating") || "";
 
   const handleChange = (value: string) => {
     setSearchParams(
@@ -70,7 +72,7 @@ const Rating = () => {
 
   return (
     <Select
-      defaultValue={""}
+      defaultValue={selectedRating}
       placeholder="select category"
       style={{ width: 150 }}
       onChange={handleChange}
@@ -80,10 +82,12 @@ const Rating = () => {
 };
 
 const SearchInput = () => {
-  const [_, setSearchParams] = useSearchParams({
+  const [searchParams, setSearchParams] = useSearchParams({
     search: "",
     page: "1",
   });
+
+  const searchInput = searchParams.get("search") || "";
 
   function onSearch(value: string) {
     setSearchParams(
@@ -98,8 +102,9 @@ const SearchInput = () => {
 
   return (
     <Search
+      defaultValue={searchInput}
       placeholder="input search text"
-      style={{ width: 300 }}
+      style={{ width: 316 }}
       onSearch={onSearch}
     />
   );

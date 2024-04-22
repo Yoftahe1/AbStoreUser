@@ -36,6 +36,7 @@ const OrderTable = () => {
       {contextHolder}
       <Table
         loading={isLoading}
+        scroll={{ x: 800}}
         dataSource={isSuccess ? data.data.products : []}
         pagination={false}
         rowKey={(record) => record._id}

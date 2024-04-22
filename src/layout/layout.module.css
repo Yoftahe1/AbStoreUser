@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid #fff;
+  padding: 0 48px;
+}
+.content {
+  padding: 0 48px;
+}
+@media (max-width: 800px) {
+  .content,
+  .header {
+    padding: 0 24px;
+  }
+}

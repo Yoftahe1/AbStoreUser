@@ -54,6 +54,7 @@ const OrderTable = () => {
       {contextHolder}
       <Table
         dataSource={isSuccess ? data.data.orders : []}
+        scroll={{ x: 800}}
         loading={isLoading}
         pagination={{
           onChange: (newPage: number) => {

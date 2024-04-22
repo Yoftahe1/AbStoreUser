@@ -45,7 +45,7 @@ const CardCarousel = ({ title }: CardCarousel) => {
       {contextHolder}
       <Title level={4}> {title}</Title>
       <br />
-      <Flex gap={16} style={{ overflowX: "auto" }}>
+      <Flex gap={16} style={{ overflowX: "auto", }}>
         {isSuccess ? (
           data.data.products.map(
             (
@@ -109,18 +109,22 @@ const CardCarousel = ({ title }: CardCarousel) => {
             )
           )
         ) : (
-          <Spin spinning={isLoading}>
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              style={{
-                height: 200,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            />
-          </Spin>
+          <div style={{ width: "100%", }}>
+            <Spin
+              spinning={isLoading}
+            >
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                style={{
+                  height: 200,
+                  display: "flex",
+                  flexDirection:"column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+            </Spin>
+          </div>
         )}
       </Flex>
       <br />
