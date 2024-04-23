@@ -14,6 +14,8 @@ import { findOneProduct } from "../../api/product";
 
 import "swiper/css";
 
+import classes from "./product.module.css"
+
 const { Title, Text } = Typography;
 const { useNotification } = notification;
 
@@ -43,15 +45,15 @@ const Desc = () => {
     <>
       {contextHolder}
 
-      <Flex gap={50} justify="center">
-        <div style={{ width: "40%" }}>
+      <div className={classes.desc}>
+        <div className={classes.container}>
           {isLoading ? (
             <Skeleton.Avatar shape="square" style={{ flex: 1 }} />
           ) : (
             <ImageSlide images={data.data.product.images} />
           )}
         </div>
-        <Flex vertical gap={14} style={{ width: "40%" }}>
+        <Flex vertical gap={14} className={classes.container}>
           <Skeleton loading={isLoading} paragraph={{ rows: 1 }}>
             <Title
               level={1}
@@ -114,7 +116,7 @@ const Desc = () => {
             )}
           </Skeleton>
         </Flex>
-      </Flex>
+      </div>
     </>
   );
 };

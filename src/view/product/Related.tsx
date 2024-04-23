@@ -51,9 +51,9 @@ const Related = () => {
           xs: 1,
           sm: 2,
           md: 3,
-          lg: 3,
+          lg: 4,
           xl: 5,
-          xxl: 7,
+          xxl: 6,
         }}
         loading={isLoading}
         dataSource={isSuccess ? data.data.products : []}
@@ -69,7 +69,7 @@ const Related = () => {
                   src={`${import.meta.env.VITE_API_BACKEND_URL}${
                     product.images[0]
                   }`}
-                  style={{ height: 238, width: "100%" }}
+                  // style={{ height: 238, width: "100%" }}
                 />
               }
             >
