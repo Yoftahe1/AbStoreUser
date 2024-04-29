@@ -16,7 +16,7 @@ const ColorPicker = ({
   types,
 }: iColorPicker) => {
   return (
-    <Flex vertical>
+    <Flex gap={5}>
       <Title level={5}>Select color :</Title>
       <Flex gap={5} align="center">
         {types.map((type, index) => {

@@ -58,10 +58,15 @@ const Rating = ({ id, totalRating }: { id: string; totalRating: number }) => {
       {contextHolder}
       <Tag
         color="orange"
-        style={{ padding: "5px 10px", borderRadius: 20, cursor: "pointer" }}
+        style={{
+          padding: "5px 10px",
+          borderRadius: 20,
+          cursor: "pointer",
+          margin: 0,
+        }}
         onClick={showModal}
       >
-        <StarOutlined /> {totalRating} Starts
+        <StarOutlined /> {totalRating.toFixed(2)} Starts
       </Tag>
       <Modal
         title="Rate Product"

@@ -103,7 +103,7 @@ const ProductList = () => {
                     <Flex align="center" justify="space-between">
                       <Flex gap={5} align="end">
                         <Text strong style={{ color: "#389E0D", fontSize: 17 }}>
-                          {product.price}{" "}
+                          {product.price}
                         </Text>
                         <Text> ETB </Text>
                       </Flex>
@@ -116,7 +116,7 @@ const ProductList = () => {
                         }}
                       >
                         <StarFilled style={{ color: "gold" }} />
-                        {product.rating} Starts
+                        {product.rating.toFixed(2)} Starts
                       </Tag>
                     </Flex>
                   }

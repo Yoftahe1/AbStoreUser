@@ -8,6 +8,14 @@
   width: 40%;
 }
 
+.img {
+  min-height: calc(10vw * 3);
+}
+
+.imgs {
+  min-height: calc((10vw * 3) / 4);
+}
+
 @media (max-width: 1450px) {
   .container {
     width: 50%;
@@ -18,12 +26,26 @@
     flex-direction: column;
     align-items: center;
   }
-  .container{
+  .container {
     width: 70%;
+  }
+  .img {
+    min-height: calc(15vw * 3);
+  }
+  
+  .imgs {
+    min-height: calc((15vw * 3) / 4);
   }
 }
 @media (max-width: 700px) {
-    .container {
-      width: 100%;
-    }
+  .container {
+    width: 100%;
   }
+  .img {
+    min-height: calc(20vw * 3);
+  }
+  
+  .imgs {
+    min-height: calc((20vw * 3) / 4);
+  }
+}

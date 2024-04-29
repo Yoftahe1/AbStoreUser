@@ -1,13 +1,16 @@
-import Meta from "antd/es/card/Meta";
-import { Card, Flex, List, Typography, notification } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { getRelatedProducts } from "../../api/product";
-// import { StarFilled } from "@ant-design/icons";
 
-const { useNotification } = notification;
+import Meta from "antd/es/card/Meta";
+import { StarFilled } from "@ant-design/icons";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card, Flex, List,Tag, Typography, notification } from "antd";
+
+import { getRelatedProducts } from "../../api/product";
+
 const { Title, Text } = Typography;
+const { useNotification } = notification;
+
 interface IProduct {
   _id: string;
   name: string;
@@ -69,7 +72,6 @@ const Related = () => {
                   src={`${import.meta.env.VITE_API_BACKEND_URL}${
                     product.images[0]
                   }`}
-                  // style={{ height: 238, width: "100%" }}
                 />
               }
             >
@@ -85,7 +87,7 @@ const Related = () => {
                         <Text> ETB </Text>
                       </Flex>
 
-                      {/* <Tag
+                      <Tag
                         style={{
                           padding: "5px 10px",
                           borderRadius: 20,
@@ -93,8 +95,8 @@ const Related = () => {
                         }}
                       >
                         <StarFilled style={{ color: "gold" }} />
-                        {product.rating} Starts
-                      </Tag> */}
+                        {product.rating.toFixed(2)} Starts
+                      </Tag>
                     </Flex>
                   }
                 />

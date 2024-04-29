@@ -1,22 +1,24 @@
 import {
-  Button,
   Flex,
   Form,
   Input,
-  InputNumber,
-  Select,
-  Typography,
-  notification,
   theme,
+  Select,
+  Button,
+  Typography,
+  InputNumber,
+  notification,
 } from "antd";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import Cookies from "js-cookie";
 
 import { userSignUp } from "../api/user";
+import useUserStore from "../store/User";
 import image from "../assets/sign/signup.jpg";
 import { locations } from "../constant/constant";
-import useUserStore from "../store/User";
+
+import classes from "./sign.module.css";
 
 const { useToken } = theme;
 const { Title, Text } = Typography;
@@ -38,7 +40,7 @@ const SignUp = () => {
   const [api, contextHolder] = useNotification();
   const sign = useUserStore((state) => state.sign);
 
-  const { mutate,isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: userSignUp,
     onSuccess: ({
       data,
@@ -92,149 +94,144 @@ const SignUp = () => {
     });
   }
   return (
-    <div style={{ maxHeight: "100vh", overflow: "hidden", paddingTop: "0px" }}>
+    <>
       {contextHolder}
       <Flex
+        className={classes.sign}
+        style={{ backgroundColor: token.colorBgLayout }}
         gap={50}
-        style={{
-          minHeight: "100vh",
-          padding: 50,
-          backgroundColor: token.colorBgLayout,
-        }}
-        justify="center"
         align="stretch"
+        justify="center"
       >
-        <Flex
-          style={{
-            width: 550,
-            borderRadius: 50,
-            padding: 50,
-            backgroundColor: token.colorBgContainer,
-          }}
-          vertical
+        <div
+          className={classes.form}
+          style={{ backgroundColor: token.colorBgContainer }}
         >
           <Title level={2} style={{ textAlign: "center" }}>
-            AB Store
+            Sign up
           </Title>
-          <Title level={2}>Sign up</Title>
           <Text>Let's get started in your journey</Text>
           <br />
           <br />
+
           <Form form={form} name="signUp" onFinish={onFinish} layout="vertical">
-            <Flex gap={10}>
-              <Form.Item
-                name="firstName"
-                label="First Name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the first name!",
-                  },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="lastName"
-                label="Last Name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the last name!",
-                  },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <Input />
-              </Form.Item>
-            </Flex>
-            <Flex gap={10}>
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the email!",
-                  },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the password!",
-                  },
-                  {
-                    pattern: /[a-z]/,
-                    message: "Password should contain lowercase letter!",
-                  },
-                  {
-                    pattern: /[A-Z]/,
-                    message: "Password should contain uppercase letter!",
-                  },
-                  {
-                    pattern: /\d/,
-                    message: "Password should contain number!",
-                  },
-                  {
-                    pattern: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
-                    message: "Password should special character!",
-                  },
-                  { min: 8, message: "Password should be min of eight character!" },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <Input />
-              </Form.Item>
-            </Flex>
-            <Flex gap={10}>
-              <Form.Item
-                name="phoneNumber"
-                label="Phone Number"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the phone number!",
-                  },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <InputNumber
-                  addonBefore="+251"
-                  min={900000000}
-                  max={999999999}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Location"
-                name="location"
-                rules={[
-                  { required: true, message: "Please input your location!" },
-                ]}
-                style={{ flex: 1 }}
-              >
-                <Select options={locations} />
-              </Form.Item>
-            </Flex>
+            <Form.Item
+              name="firstName"
+              label="First Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the first name!",
+                },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <Input placeholder="john" />
+            </Form.Item>
+            <Form.Item
+              name="lastName"
+              label="Last Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the last name!",
+                },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <Input placeholder="doe" />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the email!",
+                },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <Input placeholder="johndoe@gmail.com" />
+            </Form.Item>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the password!",
+                },
+                {
+                  pattern: /[a-z]/,
+                  message: "Password should contain lowercase letter!",
+                },
+                {
+                  pattern: /[A-Z]/,
+                  message: "Password should contain uppercase letter!",
+                },
+                {
+                  pattern: /\d/,
+                  message: "Password should contain number!",
+                },
+                {
+                  pattern: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
+                  message: "Password should special character!",
+                },
+                {
+                  min: 8,
+                  message: "Password should be min of eight character!",
+                },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <Input.Password placeholder="Johndoe_1234" />
+            </Form.Item>
+            <Form.Item
+              name="phoneNumber"
+              label="Phone Number"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the phone number!",
+                },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <InputNumber
+                addonBefore="+251"
+                min={900000000}
+                max={999999999}
+                placeholder="912345678"
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Location"
+              name="location"
+              rules={[
+                { required: true, message: "Please input your location!" },
+              ]}
+              style={{ flex: 1 }}
+            >
+              <Select options={locations} placeholder="05" />
+            </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" disabled={isPending} loading={isPending}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={isPending}
+                loading={isPending}
+              >
                 Submit
               </Button>
             </Form.Item>
           </Form>
-        </Flex>
-
-        <Flex style={{ width: 500, position: "relative" }}>
-          <img src={image} style={{ width: "100%", borderRadius: 50 }} />
+        </div>
+        <div className={classes.imgContainer}>
+          <img src={image} className={classes.img} />
           <Button
-            onClick={() => navigate("/auth/signin")}
+            onClick={() => navigate("/auth/signin", { replace: true })}
             style={{ position: "absolute", right: 50, top: 50 }}
           >
             Sign In
@@ -246,16 +243,19 @@ const SignUp = () => {
               bottom: 50,
             }}
           >
-            <Title level={2} style={{ color: token.colorTextLightSolid }}>
+            <Title level={4} style={{ color: token.colorTextLightSolid }}>
               Welcome to
             </Title>
-            <Title level={4} style={{ color: token.colorTextLightSolid }}>
+            <Title
+              level={2}
+              style={{ color: token.colorTextLightSolid, margin: 0 }}
+            >
               Ab Store
             </Title>
           </div>
-        </Flex>
+        </div>
       </Flex>
-    </div>
+    </>
   );
 };
 

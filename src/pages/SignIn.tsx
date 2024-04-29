@@ -1,19 +1,21 @@
 import {
-  Button,
   Flex,
   Form,
   Input,
-  Typography,
   theme,
+  Button,
+  Typography,
   notification,
 } from "antd";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-import {  forgotPasswordUser, userSignIn } from "../api/user";
-import image from "../assets/sign/signin.jpg";
 import useUserStore from "../store/User";
+import image from "../assets/sign/signin.jpg";
+import { forgotPasswordUser, userSignIn } from "../api/user";
+
+import classes from "./sign.module.css";
 
 const { useToken } = theme;
 const { Title, Text } = Typography;
@@ -31,7 +33,7 @@ const SignIn = () => {
   const [api, contextHolder] = useNotification();
   const sign = useUserStore((state) => state.sign);
 
-  const { mutate ,isPending} = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: userSignIn,
     onSuccess: ({
       data,
@@ -70,16 +72,16 @@ const SignIn = () => {
       navigate("/", { replace: true });
     },
     onError: (error) => {
-      showNotification("error",error.message);
+      showNotification("error", error.message);
     },
   });
 
   const { mutate: forgotMutate, isPending: forgetIsPending } = useMutation({
     mutationFn: forgotPasswordUser,
     onSuccess: (data) => {
-      showNotification("success",data.message)
+      showNotification("success", data.message);
     },
-    onError: (error) => showNotification("error",error.message),
+    onError: (error) => showNotification("error", error.message),
   });
 
   const onFinish = (values: FieldType) => {
@@ -97,29 +99,23 @@ const SignIn = () => {
     if (form.getFieldError("email").length === 0) {
       const email = form.getFieldValue("email");
       forgotMutate(email);
-    } else showNotification("error","Please input valid email address!");
+    } else showNotification("error", "Please input valid email address!");
   }
 
   return (
-    <div style={{ maxHeight: "100vh", overflow: "hidden", paddingTop: "0px" }}>
+    <>
       {contextHolder}
       <Flex
+        className={classes.sign}
+        style={{ backgroundColor: token.colorBgLayout }}
         gap={50}
-        style={{
-          minHeight: "100vh",
-          padding: 50,
-          backgroundColor: token.colorBgLayout,
-        }}
-        justify="center"
         align="stretch"
+        justify="center"
       >
-        <Flex style={{ width: 550, position: "relative" }}>
-          <img
-            src={image}
-            style={{ width: "100%", borderRadius: 50, objectFit: "cover" }}
-          />
+        <div className={classes.imgContainer}>
+          <img src={image} className={classes.img} />
           <Button
-            onClick={() => navigate("/auth/signup")}
+            onClick={() => navigate("/auth/signup", { replace: true })}
             style={{ position: "absolute", right: 50, top: 50 }}
           >
             Sign Up
@@ -131,28 +127,27 @@ const SignIn = () => {
               bottom: 50,
             }}
           >
-            <Title level={2} style={{ color: token.colorTextLightSolid }}>
+            <Title level={4} style={{ color: token.colorTextLightSolid }}>
               Welcome to
             </Title>
-            <Title level={4} style={{ color: token.colorTextLightSolid }}>
+            <Title
+              level={2}
+              style={{ color: token.colorTextLightSolid, margin: 0 }}
+            >
               Ab Store
             </Title>
           </div>
-        </Flex>
-        <Flex
-          style={{
-            width: 550,
-            borderRadius: 50,
-            padding: 50,
-            backgroundColor: token.colorBgContainer,
-          }}
-          vertical
+        </div>
+        <div
+          className={classes.form}
+          style={{ backgroundColor: token.colorBgContainer }}
         >
           <Title level={2} style={{ textAlign: "center" }}>
-            AB Store
+            Sign in
           </Title>
-          <Title level={2}>Sign in</Title>
           <Text>Let's get started in your journey</Text>
+
+          <br />
           <br />
           <Form form={form} name="signUp" onFinish={onFinish} layout="vertical">
             <Form.Item
@@ -191,14 +186,19 @@ const SignIn = () => {
             </Flex>
             <br />
             <Form.Item>
-              <Button type="primary" htmlType="submit" disabled={isPending} loading={isPending}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={isPending}
+                loading={isPending}
+              >
                 Submit
               </Button>
             </Form.Item>
           </Form>
-        </Flex>
+        </div>
       </Flex>
-    </div>
+    </>
   );
 };
 

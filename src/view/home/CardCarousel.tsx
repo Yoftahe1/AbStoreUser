@@ -1,4 +1,4 @@
-import { Card, Empty, Flex, Spin, Typography, notification } from "antd";
+import { Card, Empty, Flex, Tag, Spin, Typography, notification } from "antd";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getNewProducts, getTopRatedProducts } from "../../api/product";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-// import { StarFilled } from "@ant-design/icons";
+import { StarFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { Title, Text } = Typography;
@@ -45,7 +45,7 @@ const CardCarousel = ({ title }: CardCarousel) => {
       {contextHolder}
       <Title level={4}> {title}</Title>
       <br />
-      <Flex gap={16} style={{ overflowX: "auto", }}>
+      <Flex gap={16} style={{ overflowX: "auto" }}>
         {isSuccess ? (
           data.data.products.map(
             (
@@ -54,11 +54,13 @@ const CardCarousel = ({ title }: CardCarousel) => {
                 name,
                 price,
                 images,
+                rating,
               }: {
                 _id: string;
                 name: string;
                 price: number;
                 images: string[];
+                rating: number;
               },
               index: number
             ) => (
@@ -91,16 +93,16 @@ const CardCarousel = ({ title }: CardCarousel) => {
                           <Text> ETB </Text>
                         </Flex>
 
-                        {/* <Tag
-                            style={{
-                              padding: "5px 10px",
-                              borderRadius: 20,
-                              cursor: "pointer",
-                            }}
-                          >
-                            <StarFilled style={{ color: "gold" }} />
-                            {product.rating} Starts
-                          </Tag> */}
+                        <Tag
+                          style={{
+                            padding: "5px 10px",
+                            borderRadius: 20,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <StarFilled style={{ color: "gold" }} />
+                          {rating.toFixed(2)} Starts
+                        </Tag>
                       </Flex>
                     }
                   />
@@ -109,16 +111,14 @@ const CardCarousel = ({ title }: CardCarousel) => {
             )
           )
         ) : (
-          <div style={{ width: "100%", }}>
-            <Spin
-              spinning={isLoading}
-            >
+          <div style={{ width: "100%" }}>
+            <Spin spinning={isLoading}>
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 style={{
                   height: 200,
                   display: "flex",
-                  flexDirection:"column",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
