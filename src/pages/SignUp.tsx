@@ -107,12 +107,19 @@ const SignUp = () => {
           className={classes.form}
           style={{ backgroundColor: token.colorBgContainer }}
         >
-          <Title level={2} style={{ textAlign: "center" }}>
-            Sign up
+          <Title
+            level={3}
+            style={{
+              textAlign: "center",
+              color: "#1677FF",
+              fontWeight: 600,
+            }}
+          >
+            AB STORE
           </Title>
-          <Text>Let's get started in your journey</Text>
-          <br />
-          <br />
+          <Title level={5} style={{ textAlign: "center" }}>
+            Sign-Up
+          </Title>
 
           <Form form={form} name="signUp" onFinish={onFinish} layout="vertical">
             <Form.Item
@@ -222,11 +229,22 @@ const SignUp = () => {
                 htmlType="submit"
                 disabled={isPending}
                 loading={isPending}
+                className={classes.button}
               >
                 Submit
               </Button>
             </Form.Item>
           </Form>
+          <Flex justify="flex-start" align="center" className={classes.mobile}>
+              <Text>Already have an account ?</Text>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => navigate("/auth/signin", { replace: true })}
+              >
+                Sign-In
+              </Button>
+            </Flex>
         </div>
         <div className={classes.imgContainer}>
           <img src={image} className={classes.img} />

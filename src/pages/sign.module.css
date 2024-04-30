@@ -25,9 +25,20 @@
   box-shadow: 0 2px 8px #0000003d;
 }
 
+.mobile {
+  display: none;
+}
+
+
 @media (max-width: 1000px) {
   .imgContainer {
     display: none;
+  }
+  .mobile {
+    display: block;
+  }
+  .button{
+    width: 100%;
   }
 }
 
@@ -43,5 +54,9 @@
   }
   .form {
     border-radius: 0;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

@@ -142,13 +142,19 @@ const SignIn = () => {
           className={classes.form}
           style={{ backgroundColor: token.colorBgContainer }}
         >
-          <Title level={2} style={{ textAlign: "center" }}>
-            Sign in
+          <Title
+            level={3}
+            style={{
+              textAlign: "center",
+              color: "#1677FF",
+              fontWeight: "bold",
+            }}
+          >
+            AB STORE
           </Title>
-          <Text>Let's get started in your journey</Text>
-
-          <br />
-          <br />
+          <Title level={5} style={{ textAlign: "center" }}>
+            Sign-In
+          </Title>
           <Form form={form} name="signUp" onFinish={onFinish} layout="vertical">
             <Form.Item
               name="email"
@@ -177,6 +183,7 @@ const SignIn = () => {
               <Text>Forgot password ?</Text>
               <Button
                 type="link"
+                size="small"
                 onClick={handleForgot}
                 disabled={forgetIsPending}
                 loading={forgetIsPending}
@@ -191,11 +198,22 @@ const SignIn = () => {
                 htmlType="submit"
                 disabled={isPending}
                 loading={isPending}
+                className={classes.button}
               >
                 Submit
               </Button>
             </Form.Item>
           </Form>
+          <Flex justify="flex-start" align="center" className={classes.mobile}>
+            <Text>Don't have an account ?</Text>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => navigate("/auth/signup", { replace: true })}
+            >
+              Sign-Up
+            </Button>
+          </Flex>
         </div>
       </Flex>
     </>

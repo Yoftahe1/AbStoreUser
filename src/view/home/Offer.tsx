@@ -3,23 +3,29 @@ import { Avatar, Button, Card, Flex, List, Typography } from "antd";
 
 import { useNavigate } from "react-router-dom";
 
+import s23 from "../../assets/offer/s23.avif";
+import buds from "../../assets/offer/buds.avif";
+import flip from "../../assets/offer/flip.avif";
+
 const { Text, Title } = Typography;
 const offers = [
   {
-    title: "LikeLife Audio & Secure Fit",
-    desc: "Engineered for your best workout yet",
-    img:""
+    title: "Galaxy S23 Ultra",
+    desc: "Ultra-fast photography and game-play",
+    img: s23,
+    url: "/products?category=Phone",
   },
   {
-    title: "Big Zoom,No Problem",
-    desc: "Up close, in tight,and worry free",
-    img:""
-
+    title: "Galaxy Buds FE",
+    desc: "Your everyday audio companion",
+    img: buds,
+    url: "/products?category=EarBud",
   },
   {
-    title: "LikeLife Audio & Secure Fit",
-    desc: "Engineered for your best workout yet",
-    img:""
+    title: "Galaxy Z Flip",
+    desc: "FlexCam Selfies.Even when closed",
+    img: flip,
+    url: "/products?category=Phone",
   },
 ];
 
@@ -47,7 +53,7 @@ const Offer = () => {
                 <br />
                 <Button
                   type="link"
-                  onClick={() => navigate("/products")}
+                  onClick={() => navigate(offer.url)}
                   style={{ padding: 0 }}
                 >
                   Discover <RightOutlined />
