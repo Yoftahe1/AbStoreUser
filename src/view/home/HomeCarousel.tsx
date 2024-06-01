@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Carousel, Flex, Typography } from "antd";
+import { Button, Carousel, Flex } from "antd";
 
 import pc from "../../assets/carousel/pc.webp";
 import tv from "../../assets/carousel/tv.webp";
@@ -7,7 +7,6 @@ import set from "../../assets/carousel/set.webp";
 
 import classes from "./home.module.css";
 
-// const { Text, Title } = Typography;
 
 const carouselData = [
   {
@@ -54,11 +53,8 @@ const HomeCarousel: React.FC = () => {
                   : classes.positionLeft
               }
             >
-              {/* <Title style={{ color: data.color }} className={classes.title}>
-                {data.title}
-              </Title> */}
+
               <p style={{ color: data.color }} className={classes.title}>{data.title}</p>
-              {/* <Text style={{ color: data.color }}>{data.desc}</Text> */}
               <p style={{ color: data.color }} className={classes.desc}>{data.desc}</p>
               <br />
               <Button type="primary" onClick={() => navigate(data.url)}>
