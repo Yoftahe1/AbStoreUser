@@ -16,6 +16,8 @@ import useThemeStore from "../../store/Store";
 import useUserStore from "../../store/User";
 import { Navigate } from "react-router-dom";
 
+import classes from "./setting.module.css"
+
 const { useToken } = theme;
 const { Title, Text } = Typography;
 
@@ -45,9 +47,9 @@ const Setting = () => {
             icon={<UserOutlined />}
           />
 
-          <div style={{ width: "60%" }}>
+          <div style={{ width: "60%" }} >
             <Row gutter={[16, 16]}>
-              <Col span={12}>
+              <Col span={12} className={classes.profile}>
                 <Flex
                   style={{
                     ...container,
@@ -59,7 +61,7 @@ const Setting = () => {
                   <Text type="secondary">{user.firstName}</Text>
                 </Flex>
               </Col>
-              <Col span={12}>
+              <Col span={12} className={classes.profile}>
                 <Flex
                   style={{
                     ...container,
@@ -71,7 +73,7 @@ const Setting = () => {
                   <Text type="secondary">{user.lastName}</Text>
                 </Flex>
               </Col>
-              <Col span={12}>
+              <Col span={12} className={classes.profile}>
                 <Flex
                   style={{
                     ...container,
@@ -83,7 +85,7 @@ const Setting = () => {
                   <Text type="secondary">{user.location}</Text>
                 </Flex>
               </Col>
-              <Col span={12}>
+              <Col span={12} className={classes.profile}>
                 <Flex
                   style={{
                     ...container,
@@ -106,7 +108,7 @@ const Setting = () => {
         </Flex>
         <Divider />
 
-        <Flex justify="space-between" align="center">
+        <Flex justify="space-between" align="center" className={classes.email}>
           <Description
             title="Email"
             message="personalize your email address"
@@ -132,7 +134,7 @@ const Setting = () => {
           </div>
         </Flex>
 
-        <Divider />
+        <Divider className={classes.email}/>
         <Flex justify="space-between" align="center">
           <Description
             title="Password"

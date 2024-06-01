@@ -16,3 +16,33 @@
   top: 30%;
   left: 7%;
 }
+
+.title {
+  font-weight: 600;
+  font-size: 35px;
+}
+
+@media (max-width: 1000px) {
+  .positionLeft,
+  .positionRight {
+    left: 0;
+    top: auto;
+    bottom: 25px;
+    width: 100%;
+    align-items: center;
+  }
+  .title{
+    font-size: 27px;
+  }
+  .desc{
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .positionLeft,
+  .positionRight {
+    display: none;
+  }
+
+}

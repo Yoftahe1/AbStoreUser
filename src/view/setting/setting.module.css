@@ -1,1 +1,10 @@
-
+@media (max-width: 900px) {
+  .profile {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+    .email {
+      display: none;
+    }
+  }

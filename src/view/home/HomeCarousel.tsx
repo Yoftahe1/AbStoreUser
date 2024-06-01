@@ -7,7 +7,7 @@ import set from "../../assets/carousel/set.webp";
 
 import classes from "./home.module.css";
 
-const { Text, Title } = Typography;
+// const { Text, Title } = Typography;
 
 const carouselData = [
   {
@@ -54,10 +54,12 @@ const HomeCarousel: React.FC = () => {
                   : classes.positionLeft
               }
             >
-              <Title style={{ color: data.color, fontSize: 50 }}>
+              {/* <Title style={{ color: data.color }} className={classes.title}>
                 {data.title}
-              </Title>
-              <Text style={{ color: data.color }}>{data.desc}</Text>
+              </Title> */}
+              <p style={{ color: data.color }} className={classes.title}>{data.title}</p>
+              {/* <Text style={{ color: data.color }}>{data.desc}</Text> */}
+              <p style={{ color: data.color }} className={classes.desc}>{data.desc}</p>
               <br />
               <Button type="primary" onClick={() => navigate(data.url)}>
                 Shop Now
