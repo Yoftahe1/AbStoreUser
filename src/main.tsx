@@ -17,6 +17,7 @@ import Setting from "./view/setting/Setting.tsx";
 import Products from "./view/products/Products.tsx";
 
 import "./index.css";
+import Success from "./view/success/success.tsx";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "setting",
         element: <Setting />,
+      },
+      {
+        path: "success/:id",
+        element: <Success />,
       },
     ],
   },

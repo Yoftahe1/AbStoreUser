@@ -39,13 +39,18 @@ const OrderSidebar = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: orderProducts,
     onSuccess: (response) => {
-      showNotification("success", response.message);
+      console.log(response);
+      // showNotification("success", response.message);
       queryClient.invalidateQueries({
         queryKey: ["Product"],
       });
       removeProducts();
+
+      const checkOutUrl = response.data.data.checkout_url;
+      window.location.replace(checkOutUrl);
     },
     onError: (error) => {
+      console.log(error)
       showNotification("error", error.message);
     },
   });

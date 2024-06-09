@@ -58,3 +58,17 @@ export function orderProducts(order: IProduct[]) {
       throw error.response.data;
     });
 }
+
+// export function verifyOrder(id: string) {
+//   const token = Cookies.get("token");
+//   return axiosInstance
+//     .post(`/orders/verifyOrder/${id}`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     })
+//     .then((res: any) => res.data)
+//     .catch((error: any) => {
+//       throw error.response.data;
+//     });
+// }
