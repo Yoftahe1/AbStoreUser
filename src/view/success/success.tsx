@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, Result } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Result, Spin } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -8,8 +8,10 @@ import axiosInstance from "./../../api/main";
 const Success: React.FC = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  function verify() {
+    setIsLoading(true)
     const token = Cookies.get("token");
     axiosInstance
       .patch(`/orders/verifyOrder/${params.id}`, {
@@ -17,22 +19,25 @@ const Success: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res: any) => res.data)
-      .catch((error: any) => {
-        throw error.response.data;
+      .then((_) => {
+        setIsLoading(false);
+        navigate("/")
+      })
+      .catch((_) => {
+        setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    verify();
   }, []);
 
   return (
     <Result
-      status="success"
-      title="Successfully Purchased Products!"
-      subTitle={`Order id: ${params.id} your order will be delivered as soon as possible.`}
-      extra={[
-        <Button type="primary" key="console" onClick={() => navigate(`/`)}>
-          Go Home
-        </Button>,
-      ]}
+      status={isLoading ? "info" : "error"}
+      title={isLoading ? "Please Wait While We Verify Payment" : "Verification Failed"}
+      subTitle={isLoading ? `You will be redirected shortly.` : "You can retry verification or contact customer support."}
+      extra={[isLoading ? <Spin key="spin"/> : <Button onClick={verify} key="retry">Retry</Button>]}
     />
   );
 };
